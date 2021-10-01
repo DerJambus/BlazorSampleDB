@@ -1,10 +1,11 @@
 ﻿@page "/fetchdata"
 @using BlazorSampleDB.Shared
+@using BlazorSampleDB.Client.Components
 @inject HttpClient Http
 
 <h1>Weather forecast</h1>
-
 <p>This component demonstrates fetching data from the server.</p>
+<button class="btn btn-success" @onclick="@Add">Add Forecast</button>
 
 @if (forecasts == null)
 {
@@ -12,6 +13,7 @@
 }
 else
 {
+
     <table class="table">
         <thead>
             <tr>
@@ -33,14 +35,7 @@ else
             }
         </tbody>
     </table>
+    
 }
+@if (_showdialog) {<AddWeatherForecast @bind-ShowDialog="_showdialog" ></AddWeatherForecast> }
 
-@code {
-    private WeatherForecast[] forecasts;
-
-    protected override async Task OnInitializedAsync()
-    {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-    }
-
-}

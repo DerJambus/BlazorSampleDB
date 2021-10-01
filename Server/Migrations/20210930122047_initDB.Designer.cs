@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorSampleDB.Server.Migrations
 {
     [DbContext(typeof(WeatherForecastContext))]
-    [Migration("20210930104001_init")]
-    partial class init
+    [Migration("20210930122047_initDB")]
+    partial class initDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
