@@ -10,8 +10,9 @@ namespace BlazorSampleDB.Client.Pages
 {
     public partial class FetchData
     {
-        private List<WeatherForecast> forecasts;
+        private List<WeatherForecast> forecasts = new List<WeatherForecast>();
         private bool _showdialog = false;
+        
         protected override async Task OnInitializedAsync()
         {
             forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast");
@@ -19,7 +20,6 @@ namespace BlazorSampleDB.Client.Pages
         private async Task Add()
         {
             _showdialog = !_showdialog;
-            forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast");
         }
 
     }

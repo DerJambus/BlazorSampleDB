@@ -21,34 +21,42 @@ namespace BlazorSampleDB.Client.Components
         [Parameter]
         public EventCallback<bool> ShowDialogChanged { get; set; }
         [Parameter]
-        public EventCallback<List<WeatherForecast>> CastListChanged { get; set; }
+        public EventCallback<List<WeatherForecast>> WeatherForeCastsChanged { get; set; }
 
-        public WeatherForecast WeathCast { get; set; } = new WeatherForecast();
+        public WeatherForecast WeathCast { get; set; }
 
+        protected override Task OnInitializedAsync()
+        {
+            WeathCast = new WeatherForecast
+            {
+                Date = DateTime.Now,
+                TemperatureC = 20
+            };
+            return Task.CompletedTask;
+        }
 
         public void Reset()
         {
-            WeathCast = new WeatherForecast { };
+            WeathCast = new WeatherForecast
+            {
+                Date = DateTime.Now,
+                TemperatureC = 20
+            };
         }
 
-        public void Show()
-        {
-            Reset();
-            ShowDialog = !ShowDialog;
-        }
-
+        
         public void Close()
         {
             ShowDialog = !ShowDialog;
+           ShowDialogChanged.InvokeAsync(ShowDialog);
             Reset();
-            ShowDialogChanged.InvokeAsync(ShowDialog);
         }
 
         public async Task HandleValidSubmit()
         {
             var result = await http.PostAsJsonAsync("WeatherForecast", WeathCast);
             WeatherForecasts.Add(await result.Content.ReadFromJsonAsync<WeatherForecast>());
-            CastListChanged.InvokeAsync(WeatherForecasts);
+            await WeatherForeCastsChanged.InvokeAsync();
             Close();
         }
     }

@@ -13,8 +13,37 @@
             </div>
             <div class="modal-body">
                 <EditForm Model="@WeathCast" OnValidSubmit="@HandleValidSubmit">
-                    <DataAnnotationsValidator/>
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label for="Date">
+                            DateTime
+                        </label>
+                        <InputDate @bind-Value="@WeathCast.Date">
 
+                        </InputDate>
+                        <ValidationMessage For="@(()=>WeathCast.Date)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="TempC">
+                            TemperaturC
+                        </label>
+                        <InputNumber @bind-Value="@WeathCast.TemperatureC">
+
+                        </InputNumber>
+                        <ValidationMessage For="@(()=>WeathCast.TemperatureC)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Summary">
+                            Summary
+                        </label>
+                        <InputText @bind-Value="@WeathCast.Summary"
+                                   placeholder="cloudy, sunny, rainy, foggy ">
+                        </InputText>
+                        <ValidationMessage For="@(()=>WeathCast.Summary)" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button class="btn btn-danger" @onclick="Close">Cancel</button>
                 </EditForm>
             </div>
         </div>
