@@ -12,35 +12,35 @@
                 </button>
             </div>
             <div class="modal-body">
-                <EditForm Model="@WeathCast" OnValidSubmit="@HandleValidSubmit">
+                <EditForm Model="@_weathCast" OnValidSubmit="@HandleValidSubmit">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
                     <div class="form-group">
                         <label for="Date">
                             DateTime
                         </label>
-                        <InputDate @bind-Value="@WeathCast.Date">
+                        <InputDate @bind-Value="@_weathCast.Date">
 
                         </InputDate>
-                        <ValidationMessage For="@(()=>WeathCast.Date)" />
+                        <ValidationMessage For="@(()=>_weathCast.Date)" />
                     </div>
                     <div class="form-group">
                         <label for="TempC">
                             TemperaturC
                         </label>
-                        <InputNumber @bind-Value="@WeathCast.TemperatureC">
+                        <InputNumber @bind-Value="@_weathCast.TemperatureC">
 
                         </InputNumber>
-                        <ValidationMessage For="@(()=>WeathCast.TemperatureC)" />
+                        <ValidationMessage For="@(()=>_weathCast.TemperatureC)" />
                     </div>
                     <div class="form-group">
                         <label for="Summary">
                             Summary
                         </label>
-                        <InputText @bind-Value="@WeathCast.Summary"
+                        <InputText @bind-Value="@_weathCast.Summary"
                                    placeholder="cloudy, sunny, rainy, foggy ">
                         </InputText>
-                        <ValidationMessage For="@(()=>WeathCast.Summary)" />
+                        <ValidationMessage For="@(()=>_weathCast.Summary)" />
                     </div>
                     <button type="submit" class="btn btn-success">Save</button>
                     <button class="btn btn-danger" @onclick="Close">Cancel</button>

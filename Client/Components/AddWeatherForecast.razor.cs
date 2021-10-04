@@ -11,33 +11,30 @@ namespace BlazorSampleDB.Client.Components
 {
     public partial class AddWeatherForecast
     {
+        private WeatherForecast _weathCast { get; set; }
         [Inject]
         public HttpClient http { get; set; }
-
         [Parameter]
         public bool ShowDialog { get; set; }
         [Parameter]
-        public List<WeatherForecast> WeatherForecasts { get; set; }
-        [Parameter]
         public EventCallback<bool> ShowDialogChanged { get; set; }
+       
         [Parameter]
-        public EventCallback<List<WeatherForecast>> WeatherForeCastsChanged { get; set; }
-
-        public WeatherForecast WeathCast { get; set; }
+        public EventCallback<WeatherForecast> WeatherForecastCreated { get; set; }
 
         protected override Task OnInitializedAsync()
         {
-            WeathCast = new WeatherForecast
+            _weathCast = new WeatherForecast
             {
                 Date = DateTime.Now,
-                TemperatureC = 20
+                TemperatureC = 21
             };
             return Task.CompletedTask;
         }
 
         public void Reset()
         {
-            WeathCast = new WeatherForecast
+            _weathCast = new WeatherForecast
             {
                 Date = DateTime.Now,
                 TemperatureC = 20
@@ -47,17 +44,18 @@ namespace BlazorSampleDB.Client.Components
         
         public void Close()
         {
-            ShowDialog = !ShowDialog;
+           ShowDialog = !ShowDialog;
            ShowDialogChanged.InvokeAsync(ShowDialog);
-            Reset();
         }
 
         public async Task HandleValidSubmit()
         {
-            var result = await http.PostAsJsonAsync("WeatherForecast", WeathCast);
-            WeatherForecasts.Add(await result.Content.ReadFromJsonAsync<WeatherForecast>());
-            await WeatherForeCastsChanged.InvokeAsync();
+            
+            var result = await http.PostAsJsonAsync("WeatherForecast", _weathCast);
+            _weathCast = await result.Content.ReadFromJsonAsync<WeatherForecast>();
+            await WeatherForecastCreated.InvokeAsync(_weathCast);
             Close();
+            Reset();
         }
     }
 }
