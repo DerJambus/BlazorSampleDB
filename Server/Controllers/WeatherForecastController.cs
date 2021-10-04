@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 namespace BlazorSampleDB.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("WeatherForecast")]
     public class WeatherForecastController : ControllerBase
     {
-        private static WeatherForecastContext _context = new WeatherForecastContext();
+        
+        private WeatherForecastContext _context = new WeatherForecastContext();
        
        
 
@@ -23,14 +24,32 @@ namespace BlazorSampleDB.Server.Controllers
             return _context.WeatherForecasts.ToList();
         }
 
-        // erweitern um ein Delete
-
         [HttpPost]
         public ActionResult<WeatherForecast> Push(WeatherForecast weather)
         {
             _context.WeatherForecasts.Add(weather);
             _context.SaveChanges();
             return Ok(weather);
+        }
+
+        [HttpPost("Delete")]
+        public ActionResult<WeatherForecast> Remove(WeatherForecast cast)
+        {
+            var temp = _context.WeatherForecasts.First(x => x.Id == cast.Id);
+            _context.WeatherForecasts.Remove(temp);
+            _context.SaveChanges();
+            return Ok(cast);
+        }
+
+        [HttpPost("Change")]
+        public ActionResult<WeatherForecast> Edit(WeatherForecast cast)
+        {
+            WeatherForecast obj = _context.WeatherForecasts.First(x => x.Id == cast.Id);
+            obj.Date = cast.Date;
+            obj.Summary = cast.Summary;
+            obj.TemperatureC = cast.TemperatureC;
+            _context.SaveChanges();
+            return Ok(cast);
         }
 
     }

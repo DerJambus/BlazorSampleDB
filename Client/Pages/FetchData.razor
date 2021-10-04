@@ -16,13 +16,18 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var forecast in forecasts)
+        @foreach (WeatherForecast _weathcast in forecasts)
         {
             <tr>
-                <td>@forecast.Date.ToShortDateString()</td>
-                <td>@forecast.TemperatureC</td>
-                <td>@forecast.TemperatureF</td>
-                <td>@forecast.Summary</td>
+                <td>@_weathcast.Date.ToShortDateString()</td>
+                <td>@_weathcast.TemperatureC</td>
+                <td>@_weathcast.TemperatureF</td>
+                <td>@_weathcast.Summary</td>
+                <td>
+                    <button class="btn btn-danger" @onclick="() => Delete(_weathcast)">Delete</button>
+                    <button class="btn btn-success" @onclick="() => Edit(_weathcast)">Edit</button>
+                </td>
+                
             </tr>
         }
     </tbody>
@@ -34,3 +39,7 @@
     <AddWeatherForecast WeatherForecastCreated="ForeCastCreated" @bind-ShowDialog="_showdialog" ></AddWeatherForecast>    
 }
 
+@if(_showdialogEdit)
+{
+    <EditWeatherForecast @bind-ShowDialog="_showdialogEdit" @bind-WeathCast="_weathCast"></EditWeatherForecast>
+}

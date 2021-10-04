@@ -1,0 +1,50 @@
+﻿<div class="modal fade show d-block" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Edit Weatherforecast
+                </h4>
+                <button class="close"
+                        type="button"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        @onclick="@Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@WeathCast" OnValidSubmit="@HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label for="Date">
+                            Date:
+                        </label>
+                        <InputDate id="date" @bind-Value="@WeathCast.Date" class="form-control">
+                            <ValidationMessage For="@(() => WeathCast.Date)" />
+                        </InputDate>
+                    </div>
+                    <div class="form-group">
+                        <label for="TemC">
+                            Temperatur:
+                        </label>
+                        <InputNumber id="tempC" @bind-Value="@WeathCast.TemperatureC" class="form-control">
+                            <ValidationMessage For="@(() => WeathCast.TemperatureC)" />
+                        </InputNumber>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Summary:
+                        </label>
+                        <InputText @bind-Value="@WeathCast.Summary" class="form-control">
+                            <ValidationMessage For="@(() => WeathCast.Summary)" />
+                        </InputText>
+                    </div>
+                    <button type="submit" class=" btn btn-success">Save</button>
+                    <button @onclick="@Close" class="btn btn-danger">Cancle</button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
