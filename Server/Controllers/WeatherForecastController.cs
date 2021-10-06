@@ -1,4 +1,5 @@
-﻿using BlazorSampleDB.Shared;
+﻿using BlazorSampleDB.Server.Database;
+using BlazorSampleDB.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,35 +10,47 @@ using System.Threading.Tasks;
 namespace BlazorSampleDB.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("WeatherForecast")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
+        
+        private WeatherForecastContext _context = new WeatherForecastContext();
+       
+       
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return _context.WeatherForecasts.ToList();
         }
 
-        // erweitern um ein Delete
+        [HttpPost]
+        public ActionResult<WeatherForecast> Push(WeatherForecast weather)
+        {
+            _context.WeatherForecasts.Add(weather);
+            _context.SaveChanges();
+            return Ok(weather);
+        }
+
+        [HttpPost("Delete")]
+        public ActionResult<WeatherForecast> Remove(WeatherForecast cast)
+        {
+            var temp = _context.WeatherForecasts.First(x => x.Id == cast.Id);
+            _context.WeatherForecasts.Remove(temp);
+            _context.SaveChanges();
+            return Ok(cast);
+        }
+
+        [HttpPost("Change")]
+        public ActionResult<WeatherForecast> Edit(WeatherForecast cast)
+        {
+            WeatherForecast obj = _context.WeatherForecasts.First(x => x.Id == cast.Id);
+            obj.Date = cast.Date;
+            obj.Summary = cast.Summary;
+            obj.TemperatureC = cast.TemperatureC;
+            _context.SaveChanges();
+            return Ok(cast);
+        }
 
     }
 }

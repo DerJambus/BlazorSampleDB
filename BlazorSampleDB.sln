@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSampleDB.Server", "Server\BlazorSampleDB.Server.csproj", "{DDBD9F07-A7BA-4609-9582-FB5042AC6A71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSampleDB.Server", "Server\BlazorSampleDB.Server.csproj", "{DDBD9F07-A7BA-4609-9582-FB5042AC6A71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSampleDB.Client", "Client\BlazorSampleDB.Client.csproj", "{F97C3113-9862-496B-9798-4C5F7A98C433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSampleDB.Client", "Client\BlazorSampleDB.Client.csproj", "{F97C3113-9862-496B-9798-4C5F7A98C433}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSampleDB.Shared", "Shared\BlazorSampleDB.Shared.csproj", "{CA63E643-759F-4039-9C66-0D71929914CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSampleDB.Shared", "Shared\BlazorSampleDB.Shared.csproj", "{CA63E643-759F-4039-9C66-0D71929914CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

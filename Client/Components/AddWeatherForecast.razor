@@ -1,0 +1,49 @@
+﻿<div class="modal fade show d-block" tabindex="0" @onkeydown="CloseWithKey">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Forecast</h4>
+                <button class="close"
+                        type="button"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                        @onclick="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@_weathCast" OnValidSubmit="@HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <label for="Date">
+                            Date:
+                        </label>
+                        <InputDate id="Date" @bind-Value="@_weathCast.Date">
+                        </InputDate>
+                        <ValidationMessage For="@(()=>_weathCast.Date)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="TempCelsius">
+                            Temperatur Celsius:
+                        </label>
+                        <InputNumber id="TemperaturCelsius" @bind-Value="@_weathCast.TemperatureC">
+
+                        </InputNumber>
+                        <ValidationMessage For="@(()=>_weathCast.TemperatureC)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Summary">
+                            Summary:
+                        </label>
+                        <InputText id="Summary" @bind-Value="@_weathCast.Summary">
+                        </InputText>
+                        <ValidationMessage For="@(()=>_weathCast.Summary)" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button class="btn btn-danger" @onclick="Close">Cancel</button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>

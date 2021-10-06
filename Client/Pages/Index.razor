@@ -1,7 +1,31 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Accessibility Sample for Hello, world!</h1>
 
-Welcome to your new app.
+<p>
+    Welcome to your new app. This app ist testing different accesibility meachnisisms to provide proper acces to disabled people.
+</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<p>
+    Here is a sample of an accessibal table
+    <table>
+        <caption hidden="true">In this Caption section, only visible to screenreaders, you can store valid information to understand your tables</caption>
+        <thead>
+            <th scope="col">Item</th>
+            <th scope="col">Price Per Item in $</th>
+            <th scope="col">Pices</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Super Action Car</td>
+                <td>100</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Havy thing</td>
+                <td>102</td>
+                <td>2</td>
+            </tr>
+        </tbody>
+    </table>
+</p>
