@@ -5,11 +5,16 @@ using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using BlazorSampleDB.Client.Components;
+using Microsoft.AspNetCore.Components;
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BlazorSampleDB.Client.Pages
 {
     public partial class FetchData
     {
+        [Inject]
+        HttpClient Http { get; set; }
         private List<WeatherForecast> forecasts = new List<WeatherForecast>();
         private bool _showdialog = false;
         private bool _showdialogEdit = false;
@@ -44,5 +49,14 @@ namespace BlazorSampleDB.Client.Pages
             forecasts.Remove(cast);
             return;
         }
+
+        public void CloseWithKey(KeyboardEventArgs key)
+        {
+            if(key.Code == "ESC" || key.Code == "Esc")
+            {
+                Console.WriteLine("Esc key has triggered");
+            }
+        }
+      
     }
 }

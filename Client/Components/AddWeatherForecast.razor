@@ -1,4 +1,4 @@
-﻿<div class="modal fade show d-block" tabindex="-1">
+﻿<div class="modal fade show d-block" tabindex="0" @onkeydown="CloseWithKey">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -17,28 +17,26 @@
                     <ValidationSummary />
                     <div class="form-group">
                         <label for="Date">
-                            DateTime
+                            Date:
                         </label>
-                        <InputDate @bind-Value="@_weathCast.Date">
-
+                        <InputDate id="Date" @bind-Value="@_weathCast.Date">
                         </InputDate>
                         <ValidationMessage For="@(()=>_weathCast.Date)" />
                     </div>
                     <div class="form-group">
-                        <label for="TempC">
-                            TemperaturC
+                        <label for="TempCelsius">
+                            Temperatur Celsius:
                         </label>
-                        <InputNumber @bind-Value="@_weathCast.TemperatureC">
+                        <InputNumber id="TemperaturCelsius" @bind-Value="@_weathCast.TemperatureC">
 
                         </InputNumber>
                         <ValidationMessage For="@(()=>_weathCast.TemperatureC)" />
                     </div>
                     <div class="form-group">
                         <label for="Summary">
-                            Summary
+                            Summary:
                         </label>
-                        <InputText @bind-Value="@_weathCast.Summary"
-                                   placeholder="cloudy, sunny, rainy, foggy ">
+                        <InputText id="Summary" @bind-Value="@_weathCast.Summary">
                         </InputText>
                         <ValidationMessage For="@(()=>_weathCast.Summary)" />
                     </div>

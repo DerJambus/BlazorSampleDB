@@ -1,5 +1,6 @@
 ﻿using BlazorSampleDB.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace BlazorSampleDB.Client.Components
 
         public void Close()
         {
-            ShowDialog = !ShowDialog;
+            ShowDialog = false;
             ShowDialogChanged.InvokeAsync(ShowDialog);
         }
 
@@ -38,6 +39,21 @@ namespace BlazorSampleDB.Client.Components
             var result = await http.PostAsJsonAsync("WeatherForecast/Change", WeathCast);
             await WeathCastChanged.InvokeAsync(WeathCast);
             Close();
+        }
+
+        public async void CloseWithKey(KeyboardEventArgs key)
+        {
+            String keyString = key.Code;
+            if (keyString.Equals("Enter"))
+            {
+                await HandleValidSubmit();
+            }
+
+            if (keyString.Equals("Escape"))
+            {
+                Close();
+            }
+            //Console.WriteLine("Just testing: " + keyString);
         }
     }
 }

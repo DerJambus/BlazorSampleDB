@@ -1,5 +1,6 @@
 ﻿using BlazorSampleDB.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,6 @@ namespace BlazorSampleDB.Client.Components
             _weathCast = new WeatherForecast
             {
                 Date = DateTime.Now,
-                TemperatureC = 21
             };
             return Task.CompletedTask;
         }
@@ -37,14 +37,13 @@ namespace BlazorSampleDB.Client.Components
             _weathCast = new WeatherForecast
             {
                 Date = DateTime.Now,
-                TemperatureC = 20
             };
         }
 
         
         public void Close()
         {
-           ShowDialog = !ShowDialog;
+           ShowDialog = false;
            ShowDialogChanged.InvokeAsync(ShowDialog);
         }
 
@@ -56,6 +55,22 @@ namespace BlazorSampleDB.Client.Components
             await WeatherForecastCreated.InvokeAsync(_weathCast);
             Close();
             Reset();
+        }
+
+
+        public async void CloseWithKey(KeyboardEventArgs key)
+        {
+            String keyString = key.Code;
+            if (keyString.Equals("Enter"))
+            {
+                await HandleValidSubmit();
+            }
+
+            if (keyString.Equals("Escape"))
+            {
+                Close();
+            }
+            //Console.WriteLine("Just testing: " + keyString);
         }
     }
 }
