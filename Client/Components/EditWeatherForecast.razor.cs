@@ -53,7 +53,6 @@ namespace BlazorSampleDB.Client.Components
             {
                 Close();
             }
-            //Console.WriteLine("Just testing: " + keyString);
         }
     }
 }
