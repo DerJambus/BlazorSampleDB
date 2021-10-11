@@ -19,7 +19,7 @@ namespace BlazorSampleDB.Client.Components
         public bool ShowDialog { get; set; }
         [Parameter]
         public EventCallback<bool> ShowDialogChanged { get; set; }
-       
+
         [Parameter]
         public EventCallback<WeatherForecast> WeatherForecastCreated { get; set; }
 
@@ -36,41 +36,33 @@ namespace BlazorSampleDB.Client.Components
         {
             _weathCast = new WeatherForecast
             {
-                Date = DateTime.Now,
+                Date = DateTime.Now
             };
         }
 
-        
+
         public void Close()
         {
-           ShowDialog = false;
-           ShowDialogChanged.InvokeAsync(ShowDialog);
+            ShowDialog = false;
+            ShowDialogChanged.InvokeAsync(ShowDialog);
         }
 
         public async Task HandleValidSubmit()
         {
-            
             var result = await http.PostAsJsonAsync("WeatherForecast", _weathCast);
             _weathCast = await result.Content.ReadFromJsonAsync<WeatherForecast>();
             await WeatherForecastCreated.InvokeAsync(_weathCast);
             Close();
-            Reset();
         }
 
 
-        public async void CloseWithKey(KeyboardEventArgs key)
+        public
+            void CloseWithKey(KeyboardEventArgs key)
         {
-            String keyString = key.Code;
-            if (keyString.Equals("Enter"))
-            {
-                await HandleValidSubmit();
-            }
-
-            if (keyString.Equals("Escape"))
+            if(key.Code == "Escape")
             {
                 Close();
             }
-            //Console.WriteLine("Just testing: " + keyString);
         }
     }
 }

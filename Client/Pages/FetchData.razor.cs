@@ -17,6 +17,7 @@ namespace BlazorSampleDB.Client.Pages
         HttpClient Http { get; set; }
         private List<WeatherForecast> forecasts = new List<WeatherForecast>();
         private bool _showdialog = false;
+        private string searchstring;
         private bool _showdialogEdit = false;
         public WeatherForecast _weathCast;
         protected override async Task OnInitializedAsync()
@@ -34,7 +35,7 @@ namespace BlazorSampleDB.Client.Pages
         {
             forecasts.Add(cast);
             return Task.CompletedTask;
-        } 
+        }
 
         public Task Edit(WeatherForecast cast)
         {
@@ -43,8 +44,13 @@ namespace BlazorSampleDB.Client.Pages
             return Task.CompletedTask;
         }
 
+        public void Search(string str)
+        {
+
+        }
+
         protected async Task Delete(WeatherForecast cast)
-        {            
+        {
             var result = await Http.PostAsJsonAsync("WeatherForecast/Delete", cast);
             forecasts.Remove(cast);
             return;
@@ -52,11 +58,26 @@ namespace BlazorSampleDB.Client.Pages
 
         public void CloseWithKey(KeyboardEventArgs key)
         {
-            if(key.Code == "ESC" || key.Code == "Esc")
+            if (key.Code == "ESC" || key.Code == "Esc")
             {
                 Console.WriteLine("Esc key has triggered");
+
             }
+
+
+
         }
-      
+
+        public void Search()
+        {
+            string str = searchstring;
+            List<WeatherForecast> result = forecasts.FindAll(cast => cast.Summary == str).ToList();
+            Console.WriteLine(str);
+            foreach (var element in result)
+            {
+                Console.WriteLine(element.toString());
+            }
+            Console.WriteLine(searchstring + " Just testing");
+        }
     }
 }
