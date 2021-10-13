@@ -7,11 +7,11 @@
 <div class="row">
     <button class="btn btn-success" @onclick="@Add">Add Forecast</button>
     <input type="search" @bind="@searchstring" />
-    <SearchWeatherForecast SearchString="@searchstring" @bind-CastList="forecasts"></SearchWeatherForecast>
+    <SearchWeatherForecast @bind-SearchString="searchstring" @bind-CastList="forecasts"></SearchWeatherForecast>
 </div>
 
 <table class="table">
-    <caption hidden="true">This table stores Weatherforecasts for different dates mapping their summaries.</caption>
+    <caption hidden="true">This table stores Weatherforecasts for different dates mapping their summaries and the current temperature to a specific date.</caption>
     <thead>
         <tr>
             <th scope="col">Date</th>

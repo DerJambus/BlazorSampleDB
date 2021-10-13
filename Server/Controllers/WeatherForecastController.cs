@@ -51,6 +51,5 @@ namespace BlazorSampleDB.Server.Controllers
             _context.SaveChanges();
             return Ok(cast);
         }
-
     }
 }

@@ -24,6 +24,9 @@ namespace BlazorSampleDB.Client.Components
         [Parameter]
         public EventCallback<List<WeatherForecast>> CastListChanged { get; set; }
 
+        [Parameter]
+        public EventCallback<string> SearchStringChanged { get; set; }
+
         public void Search()
         {
             CastList = CastList
@@ -43,6 +46,7 @@ namespace BlazorSampleDB.Client.Components
         {
             CastList = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast");
             SearchString = "";
+            await SearchStringChanged.InvokeAsync(SearchString);
             SubmitSearch();
         }
     }
