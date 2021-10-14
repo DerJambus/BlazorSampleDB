@@ -19,8 +19,7 @@
                         <label for="Date">
                             Date:
                         </label>
-                        <InputDate id="Date" @bind-Value="@_weathCast.Date">
-                        </InputDate>
+                        <input @ref="focusRef" id="Date" type="date" @bind-value="_weathCast.Date" class="form-control"/>
                         <ValidationMessage For="@(()=>_weathCast.Date)" />
                     </div>
                     <div class="form-group">

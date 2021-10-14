@@ -12,7 +12,6 @@ namespace BlazorSampleDB.Client.Components
 {
     public partial class AddWeatherForecast
     {
-        private WeatherForecast _weathCast { get; set; }
         [Inject]
         public HttpClient http { get; set; }
         [Parameter]
@@ -22,14 +21,26 @@ namespace BlazorSampleDB.Client.Components
 
         [Parameter]
         public EventCallback<WeatherForecast> WeatherForecastCreated { get; set; }
+        private WeatherForecast _weathCast { get; set; }
 
+        private ElementReference focusRef;
         protected override Task OnInitializedAsync()
         {
             _weathCast = new WeatherForecast
             {
                 Date = DateTime.Now,
+                TemperatureC = 20,
             };
+
             return Task.CompletedTask;
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await focusRef.FocusAsync();
+            }
         }
 
         public void Reset()
@@ -39,7 +50,6 @@ namespace BlazorSampleDB.Client.Components
                 Date = DateTime.Now
             };
         }
-
 
         public void Close()
         {
