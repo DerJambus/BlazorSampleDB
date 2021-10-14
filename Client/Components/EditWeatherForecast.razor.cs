@@ -21,17 +21,26 @@ namespace BlazorSampleDB.Client.Components
         [Parameter]
         public WeatherForecast WeathCast { get; set; }
 
-
         [Parameter]
         public EventCallback<bool> ShowDialogChanged { get; set; }
 
         [Parameter]
         public EventCallback<WeatherForecast> WeathCastChanged { get; set; }
 
+        private ElementReference focusRef;
+
         public void Close()
         {
             ShowDialog = false;
             ShowDialogChanged.InvokeAsync(ShowDialog);
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await focusRef.FocusAsync();
+            }
         }
 
         public async Task HandleValidSubmit()
