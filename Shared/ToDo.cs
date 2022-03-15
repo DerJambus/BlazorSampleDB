@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BlazorSampleDB.Shared
 {
-    internal class ToDolist
+    public class ToDo
     {
+        public int id { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTime deadline { get; set; }
+
     }
 }
