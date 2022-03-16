@@ -13,8 +13,6 @@ namespace BlazorSampleDB.Server.Controllers
         
         private WeatherForecastContext _context = new WeatherForecastContext();
        
-       
-
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

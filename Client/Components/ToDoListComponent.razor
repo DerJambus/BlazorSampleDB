@@ -1,0 +1,21 @@
+﻿@using BlazorSampleDB.Shared
+<h2>This is a sample for an ToDoList</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Deadline</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(ToDo todo in toDoList)
+        {
+            <tr>
+                <td>@todo.title</td>
+                <td>@todo.description</td>
+                <td>@todo.deadline.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
