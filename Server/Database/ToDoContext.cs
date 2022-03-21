@@ -4,12 +4,10 @@ namespace BlazorSampleDB.Server.Database
 {
     public class ToDoContext:DbContext
     {
-
-        public DbSet<ToDo> todolist { get; set; }
+        public DbSet<ToDo> Todos { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source= (localdb)\\MSSQLLocalDB; Initial Catalog=ToDoDB");
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=ToDoDB");
         }
-
     }
 }

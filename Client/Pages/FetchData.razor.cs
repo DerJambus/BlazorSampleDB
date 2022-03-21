@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using BlazorSampleDB.Client.Components;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 using Microsoft.AspNetCore.Components.Web;
@@ -44,11 +43,6 @@ namespace BlazorSampleDB.Client.Pages
             return Task.CompletedTask;
         }
 
-        public void Search(string str)
-        {
-
-        }
-
         protected async Task Delete(WeatherForecast cast)
         {
             var result = await Http.PostAsJsonAsync("WeatherForecast/Delete", cast);
@@ -61,7 +55,6 @@ namespace BlazorSampleDB.Client.Pages
             if (key.Code == "ESC" || key.Code == "Esc")
             {
                 Console.WriteLine("Esc key has triggered");
-
             }
 
 

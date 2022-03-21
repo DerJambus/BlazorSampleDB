@@ -12,16 +12,17 @@ namespace BlazorSampleDB.Server.Controllers
     {
         private ToDoContext _todos = new ToDoContext();
 
-        [HttpGet]
+        [HttpGet("Load")]
         public IEnumerable<ToDo> Get()
         {
-            return _todos.todolist;
+            var result = _todos.Todos.ToList();
+            return result;
         }
-
-        [HttpPost]
+        
+        [HttpPost("Add")]
         public ActionResult<ToDo> Push(ToDo t)
         {
-            _todos.todolist.Add(t);
+            _todos.Todos.Add(t);
             _todos.SaveChanges();
             return Ok(t);
         }
@@ -29,8 +30,8 @@ namespace BlazorSampleDB.Server.Controllers
         [HttpPost("Delete")]
         public ActionResult<ToDo> Remove(ToDo t)
         {
-            var temp = _todos.todolist.First(x => x.id == t.id);
-            _todos.todolist.Remove(temp);
+            var temp = _todos.Todos.First(x => x.Id == t.Id);
+            _todos.Todos.Remove(temp);
             _todos.SaveChanges();
             return Ok(t);
         }
@@ -38,10 +39,10 @@ namespace BlazorSampleDB.Server.Controllers
         [HttpPost("Edit")]
         public ActionResult<ToDo> Edit(ToDo t)
         {
-            var temp = _todos.todolist.First(x => x.id == t.id);
-            temp.title = t.title;
-            temp.description = t.description;
-            temp.deadline = t.deadline;
+            var temp = _todos.Todos.First(x => x.Id == t.Id);
+            temp.Title = t.Title;
+            temp.Description = t.Description;
+            temp.Deadline = t.Deadline;
             _todos.SaveChanges();
             return Ok(t);
         }

@@ -4,16 +4,14 @@ using BlazorSampleDB.Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BlazorSampleDB.Server.Migrations
+namespace BlazorSampleDB.Server.Migrations.WeatherForecast
 {
     [DbContext(typeof(WeatherForecastContext))]
-    [Migration("20210930122047_initDB")]
-    partial class initDB
+    partial class WeatherForecastContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

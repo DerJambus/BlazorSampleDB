@@ -7,38 +7,76 @@ using System.Threading.Tasks;
 
 namespace BlazorSampleDB.Client.Components
 {
-    
+
     public partial class ToDoListComponent
     {
         [Inject]
-        public HttpClient http { get; set; }
+        HttpClient http { get; set; }
 
-        [Parameter]
+        private bool adding { get; set; } = false;
+
+        private bool editing { get; set; } = false;
+
         public List<ToDo> toDoList { get; set; }
 
-        [Parameter]
-        public EventCallback<List<ToDo>> toDoListChanged { get; set; }
+        private bool startFakeservice = false;
 
-        private bool startFakeservice = true;
+        private ToDo currentToDo { get; set; } = new ToDo();
 
-        protected override async Task<Task> OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             if (startFakeservice)
             {
                 toDoList = initFakeService();
+                return;
             }
 
-            return Task.CompletedTask;
+
+            toDoList = new List<ToDo>();
+            toDoList = await http.GetFromJsonAsync<List<ToDo>>("ToDo/Load");
+            currentToDo = new ToDo();
+            return;
         }
 
         private List<ToDo> initFakeService()
         {
             var result = new List<ToDo>
             {
-                new ToDo{title="Geschirrspüler reparieren", deadline= System.DateTime.Today, description = "ganz wichtige Aufgabe"},
-                new ToDo{title="Blazokomponente bauen", deadline = System.DateTime.Today, description = "Blazorkomponente mit ToDoListe bauen"},
+                new ToDo{Title="Geschirrspüler reparieren", Deadline= System.DateTime.Today, Description = "ganz wichtige Aufgabe"},
+                new ToDo{Title="Blazokomponente bauen", Deadline = System.DateTime.Today, Description = "Blazorkomponente mit ToDoListe bauen"},
             };
+
             return result;
+        }
+
+        protected async Task Delete(ToDo t)
+        {
+            if (!startFakeservice)
+            {
+                var result = await http.PostAsJsonAsync("ToDo/Delete", t);
+            }
+            toDoList.Remove(t);
+            return;
+        }
+
+        protected Task Add()
+        {
+            adding = true;
+            return Task.CompletedTask;
+        }
+
+        protected Task ToDoCreated(ToDo t)
+        {
+            currentToDo = t;
+            toDoList.Add(currentToDo);
+            return Task.CompletedTask;
+        }
+
+        protected Task Change(ToDo t)
+        {
+            currentToDo = t;
+            editing = true;
+            return Task.CompletedTask;
         }
     }
 }
