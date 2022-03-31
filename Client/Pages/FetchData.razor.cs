@@ -8,6 +8,7 @@ using BlazorSampleDB.Client.Components;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 using Microsoft.AspNetCore.Components.Web;
+using BlazorSampleDB.Shared.HttpModel;
 
 namespace BlazorSampleDB.Client.Pages
 {
@@ -22,7 +23,30 @@ namespace BlazorSampleDB.Client.Pages
         public WeatherForecast _weathCast;
         protected override async Task OnInitializedAsync()
         {
-            forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast");
+            //forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast");
+            TableWeathcastCollection temp = new TableWeathcastCollection();
+
+
+            //TODO Fix Parsing
+            try
+            {
+                temp = await Http.GetFromJsonAsync<TableWeathcastCollection>("WeatherForecast/UseWrapper");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            foreach (var weather in temp.list)
+            {
+                forecasts.Add(new WeatherForecast
+                {
+                    Date = weather.Date,
+                    Id = weather.Id,
+                    Summary = weather.Summary,
+                    TemperatureC = weather.TemperatureC,
+                });
+            }
             _weathCast = new WeatherForecast();
         }
         private Task Add()

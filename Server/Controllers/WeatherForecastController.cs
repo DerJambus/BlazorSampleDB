@@ -15,8 +15,22 @@ namespace BlazorSampleDB.Server.Controllers
     {
         
         private WeatherForecastContext _context = new WeatherForecastContext();
-       
-       
+
+
+
+        [HttpGet("UseWrapper")]
+        public async Task<ActionResult<Shared.HttpModel.TableWeathcastCollection>> GetWithWrapper()
+        {
+            var casts = new List<Shared.HttpModel.TableWeathcast>();
+
+            foreach (var weather in _context.WeatherForecasts)
+            {
+                var temp = new Shared.HttpModel.TableWeathcast(weather);
+                casts.Add(temp);
+            }
+
+            return new Shared.HttpModel.TableWeathcastCollection(casts);
+        }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
