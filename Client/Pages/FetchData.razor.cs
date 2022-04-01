@@ -24,20 +24,11 @@ namespace BlazorSampleDB.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             //forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast");
-            TableWeathcastCollection temp = new TableWeathcastCollection();
+            var temp = new TableWeathcastCollection();
 
+            temp = await Http.GetFromJsonAsync<TableWeathcastCollection>("WeatherForecast/UseWrapper");
 
-            //TODO Fix Parsing
-            try
-            {
-                temp = await Http.GetFromJsonAsync<TableWeathcastCollection>("WeatherForecast/UseWrapper");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            foreach (var weather in temp.list)
+            foreach (var weather in temp.WeathCasts)
             {
                 forecasts.Add(new WeatherForecast
                 {

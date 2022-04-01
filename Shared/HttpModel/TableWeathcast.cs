@@ -17,6 +17,11 @@ namespace BlazorSampleDB.Shared.HttpModel
 
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
+        public TableWeathcast()
+        {
+
+        }
+
         public TableWeathcast(WeatherForecast cast)
         {
             TemperatureC = cast.TemperatureC;
@@ -29,16 +34,16 @@ namespace BlazorSampleDB.Shared.HttpModel
 
     public class TableWeathcastCollection
     {
-        public List<TableWeathcast> list { get; set; }
+        public List<TableWeathcast> WeathCasts { get; set; }
 
         public TableWeathcastCollection()
         {
-            list = new List<TableWeathcast>();
+            WeathCasts = new List<TableWeathcast>();
         }
 
-        public TableWeathcastCollection( IEnumerable<TableWeathcast> WeathCasts)
+        public TableWeathcastCollection( List<TableWeathcast> weathCasts)
         {
-            list = WeathCasts.ToList();
+            WeathCasts = weathCasts;
         }
     }
 }
