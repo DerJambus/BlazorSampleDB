@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using BlazorSampleDB.Client.Components;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 using Microsoft.AspNetCore.Components.Web;
@@ -24,6 +23,7 @@ namespace BlazorSampleDB.Client.Pages
         {
             forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("WeatherForecast");
             _weathCast = new WeatherForecast();
+            StateHasChanged();
         }
         private Task Add()
         {
@@ -34,6 +34,7 @@ namespace BlazorSampleDB.Client.Pages
         public Task ForeCastCreated(WeatherForecast cast)
         {
             forecasts.Add(cast);
+            StateHasChanged();
             return Task.CompletedTask;
         }
 

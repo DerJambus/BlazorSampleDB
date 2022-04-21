@@ -55,6 +55,7 @@ namespace BlazorSampleDB.Client.Components
         {
             ShowDialog = false;
             ShowDialogChanged.InvokeAsync(ShowDialog);
+
         }
 
         public async Task HandleValidSubmit()

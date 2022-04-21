@@ -10,33 +10,16 @@
     <SearchWeatherForecast @bind-SearchString="searchstring" @bind-CastList="forecasts"></SearchWeatherForecast>
 </div>
 
-<table class="table">
-    <caption hidden="true">This table stores Weatherforecasts for different dates mapping their summaries and the current temperature to a specific date.</caption>
-    <thead>
-        <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Temperature Celsius</th>
-            <th scope="col">Temperature Farenheit</th>
-            <th scope="col">Summary</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (WeatherForecast _weathcast in forecasts)
-        {
-            <tr>
-                <td>@_weathcast.Date.ToShortDateString()</td>
-                <td>@_weathcast.TemperatureC</td>
-                <td>@_weathcast.TemperatureF</td>
-                <td>@_weathcast.Summary</td>
-                <td>
-                    <button class="btn btn-danger" @onclick="() => Delete(_weathcast)">Delete</button>
-                    <button class="btn btn-success" @onclick="() => Edit(_weathcast)">Edit</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<SfGrid DataSource="@forecasts">
+    <GridColumns>
+        <GridColumn Field=@nameof(WeatherForecast.Id) HeaderText="ID">
+        </GridColumn>
+        <GridColumn Field=@nameof(WeatherForecast.Date) HeaderText="Date">
+       </GridColumn>
+       <GridColumn Field=@nameof(WeatherForecast.Summary) HeaderText="Summary">
+       </GridColumn>
+    </GridColumns>
+</SfGrid>
 
 @if (_showdialog)
 {
